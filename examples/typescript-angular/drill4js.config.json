@@ -1,0 +1,24 @@
+{
+    "projectName": "typescript-angular",
+    "source_dir": "js",
+    "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/ast",
+    "ignoreFiles": [
+        "*.js.map",
+        "*.js",
+        "*.html",
+        "*.css",
+        "*.ico",
+        "*.json"
+    ],
+    "ignoreFolders": [
+        "libs",
+        "coverage",
+        "interfaces"
+    ],
+    "sourceMaps": {
+        "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/source-maps",
+        "pattern":[
+            "./js/**/*.js.map"
+        ]
+    }
+}
