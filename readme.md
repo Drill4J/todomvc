@@ -1,5 +1,5 @@
 # Drill4J sample project
-This is a fork of [TodoMVC]() repo created as an example to help anyone to gear up their JavaScript (TypeScript, CofeeScript is fine too) project with Drill4J.
+This is a fork of [TodoMVC]() repo created as an example to help anyone to gear up their JavaScript project with Drill4J (TypeScript, CoffeeScript, any other language compiled to JS is supported as well).
 
 ## I just want a demo
 This is fairly simple (**Tip:** don't be intimidated by a lengthy guide, it's just very detailed): 
@@ -8,7 +8,7 @@ This is fairly simple (**Tip:** don't be intimidated by a lengthy guide, it's ju
 3. Collect coverage and see it in Drill4J Admin UI
 
 ### Step 1 - Spin up Drill4J services
-At first, you need to launch Drill4J backend services. For the sake of demo, container that will parse sample project on launch is added to `docker-compose.yml`[/docker-compose.yml] as well.
+At first, you need to launch Drill4J backend services. For the sake of demo, container that will parse sample project on launch is added to [docker-compose.yml](/docker-compose.yml) as well.
 1. Clone this repo
 2. Run `docker-compose up -d`
 3. Once it's done, open [Drill4J Admin UI](http://localhost:9091) (at http://localhost:9091)
@@ -54,16 +54,22 @@ Coverage for all methods that you've triggered must be visible at agent's page i
 4. [Drill4J Admin UI](http://localhost:9091) should be available
 
 ### Parse your project
-1. Add `drill4js.config.json` to your project root. Use [/examples/typescript-angular/drill4js.config.json](/examples/typescript-angular/drill4js.config.json) as a reference
-2. **Tip:** replace all entries of "todomvc-typescript-angular" with your project name. Letters, digits, slashes and spaces are allowed. Just remember to **set correct agent name** when configuring browser extension
-3. Run `npx drill4js-cli -s -c drill4js.config.json -b 0.0.1` in your project root. **Note:** that last `-b` is your Build Version number. Make sure to increment that each time you run `drill4js-cli` utility.
+
+1. Enable sourcemaps generation in your build pipeline. Drill4J won't be able to map coverage otherwise.
+2. Add `drill4js.config.json` to your project root. Use [/examples/typescript-angular/drill4js.config.json](/examples/typescript-angular/drill4js.config.json) as a reference. remember to
+- set sources search pattern. E.g. `"src/**/*.ts"` to include any `.ts` files nested in `src` folder. If you have both `.ts` and `.js` just add another line (`["js/**/*.ts", "js/**/*.js"]`)
+- set sourcemaps search pattern. E.g. `"src/**/*.js.map"`
+- replace entries of **"todomvc-typescript-angular"** with desired project name (no special characters). Remember it in order to **set correct agent name** when configuring browser extension.
+
+4. Run `npx drill4js-cli -s -c drill4js.config.json -b 0.0.1` in your project root. **Note:** that last `-b` is your Build Version number. Make sure to increment that each time you run `drill4js-cli` utility.
+
 You should be able to see your projects sourcecode tree in [Drill4J Admin UI](http://localhost:9091) (http://localhost:9091) at Test2Code plugin page
 
 ### What's next?
 1. Use Drill4J browser extension to collect manual tests coverage
-2. Integrate `npx drill4js-cli -s -c drill4js.config.json -b 0.0.1` into build pipeline to get the most out of Drill:
+2. Integrate `npx drill4js-cli -s -c drill4js.config.json -b 0.0.1` into the build pipeline to get the most out of Drill:
 - detect **risks:** (new and modified methods)
-- **see gaps** in your **coverage**
+- see **gaps** in your **coverage**
 - get suggestions on **test to run**
 - **analyze overlap** in your manual and autotest sessions
 

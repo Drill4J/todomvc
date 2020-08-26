@@ -1,24 +1,26 @@
 {
-    "projectName": "typescript-angular",
-    "source_dir": "js",
-    "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/ast",
-    "ignoreFiles": [
-        "*.js.map",
-        "*.js",
-        "*.html",
-        "*.css",
-        "*.ico",
-        "*.json"
+  "sources": {
+    "pattern": [
+      "js/**/*.ts"
     ],
-    "ignoreFolders": [
-        "libs",
-        "coverage",
-        "interfaces"
+    "ignore": [
+      "**/js/libs/**",
+      "**/js/interfaces/**"
     ],
-    "sourceMaps": {
-        "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/source-maps",
-        "pattern":[
-            "./js/**/*.js.map"
-        ]
+    "output": {
+      "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/ast"
     }
+  },
+  "sourcemaps": {
+    "pattern": [
+      "js/**/*.js.map"
+    ],
+    "ignore": [
+      "**/js/libs/**",
+      "**/js/interfaces/**"
+    ],
+    "output": {
+      "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/source-maps"
+    }
+  }
 }

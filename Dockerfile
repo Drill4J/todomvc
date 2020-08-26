@@ -25,7 +25,7 @@ ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait
 RUN chmod +x /wait
 
 # Wait for the js-agent to launch (see a docker-compose.yml for more info) and launch parsing utility
-CMD /wait && npx drill4js-cli -sc ./drill4js.config.json -b 0.0.1
+CMD /wait && npx drill4js-cli -s -c ./drill4js.config.json -b 0.0.1
 #                                                        -b refers to a "build version" of the sample project
 
 # Note that source sourcecode parsing utility requires:
