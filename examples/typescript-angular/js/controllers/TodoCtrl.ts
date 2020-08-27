@@ -62,6 +62,10 @@ module todos {
 			this.todoStorage.put(this.todos);
 		}
 
+		addTimestamp() {
+			this.todos.push(new TodoItem(Date.now().toString(), false));
+		}
+
 		addTodo() {
 			var newTodo : string = this.$scope.newTodo.trim();
 			if (!newTodo.length) {

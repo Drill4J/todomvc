@@ -8,7 +8,7 @@ var todos;
             this.completed = completed;
         }
         return TodoItem;
-    })();
+    }());
     todos.TodoItem = TodoItem;
 })(todos || (todos = {}));
 /// <reference path='../_all.ts' />
@@ -91,7 +91,7 @@ var todos;
             localStorage.setItem(this.STORAGE_ID, JSON.stringify(todos));
         };
         return TodoStorage;
-    })();
+    }());
     todos_1.TodoStorage = TodoStorage;
 })(todos || (todos = {}));
 /// <reference path='../_all.ts' />
@@ -136,6 +136,9 @@ var todos;
             this.$scope.doneCount = this.todos.length - this.$scope.remainingCount;
             this.$scope.allChecked = !this.$scope.remainingCount;
             this.todoStorage.put(this.todos);
+        };
+        TodoCtrl.prototype.addTimestamp = function () {
+            this.todos.push(new todos.TodoItem(Date.now().toString(), false));
         };
         TodoCtrl.prototype.addTodo = function () {
             var newTodo = this.$scope.newTodo.trim();
@@ -187,7 +190,7 @@ var todos;
             'filterFilter'
         ];
         return TodoCtrl;
-    })();
+    }());
     todos.TodoCtrl = TodoCtrl;
 })(todos || (todos = {}));
 /// <reference path='_all.ts' />
