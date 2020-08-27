@@ -20,16 +20,9 @@ RUN npm install --silent
 # Compile in order to generate sourcemaps (those are required for source-parsing utility at a later stage)
 RUN npm run compile
 
-# Setup wait utility (js-agent must launch first, otherwise it is impossible to submit parsing results)
-ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
-RUN chmod +x /wait
+# # Setup wait utility (js-agent must launch first, otherwise it is impossible to submit parsing results)
+# ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.7.3/wait /wait
+# RUN chmod +x /wait
 
-# Wait for the js-agent to launch (see a docker-compose.yml for more info) and launch parsing utility
-CMD /wait && npx drill4js-cli -s -c ./drill4js.config.json -b 0.0.1
-#                                                        -b refers to a "build version" of the sample project
-
-# Note that source sourcecode parsing utility requires:
-#   - configuration file (drill4js.config.json)
-#   - and sourcemaps
-# Both might be placed anywhere and handled with the appropriate config / utility launch parameters
-# but for the sake of the example are locationed inside the sample project directory
+# Replace default host & parse project
+CMD sed -i 's/jsagent:9404/'${JS_AGENT_HOST}'/g' drill4js.config.json && npx drill4js-cli@${JS_AST_PARSER_VERSION} -s -c ./drill4js.config.json -b ${BUILD_VERSION}
