@@ -30,14 +30,14 @@
 		<section class="todoapp" ng-controller="todoCtrl">
 			<header class="header">
 				<h1>todos</h1>
-				<p>Modified method is "addTodo"</br>Add new item to trigger it</p>
+				<p>Modified method is "editTodo"</br>Edit item to trigger it</p>
+				<p>Deleted method is "markAll"</p>
+				<button class="custom-button" ng-click="vm.addTimestamp()">New method (addTimestamp)</button>	
 				<form class="todo-form" ng-submit="vm.addTodo()">
 					<input class="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
 				</form>
 			</header>
 			<section class="main" ng-show="todos.length" ng-cloak>
-				<input id="toggle-all" class="toggle-all" type="checkbox" ng-model="allChecked" ng-click="vm.markAll(allChecked)">
-				<label for="toggle-all">Mark all as complete</label>
 				<ul class="todo-list">
 					<li ng-repeat="todo in todos | filter:statusFilter track by $index" ng-class="{completed: todo.completed, editing: todo == editedTodo}">
 						<div class="view">

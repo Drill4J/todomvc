@@ -126,6 +126,9 @@ var todos;
                 $location.path('/');
             $scope.location = $location;
         }
+        TodoCtrl.prototype.addTimestamp = function () {
+            this.todos.push(new todos.TodoItem(Date.now().toString(), false));
+        };
         TodoCtrl.prototype.onPath = function (path) {
             this.$scope.statusFilter = (path === '/active') ?
                 { completed: false } : (path === '/completed') ?
@@ -147,6 +150,7 @@ var todos;
             this.$scope.newTodo = '';
         };
         TodoCtrl.prototype.editTodo = function (todoItem) {
+            todoItem.title += ' Modified Edit';
             this.$scope.editedTodo = todoItem;
             // Clone the original todo in case editing is cancelled.
             this.$scope.originalTodo = angular.extend({}, todoItem);
@@ -173,9 +177,6 @@ var todos;
         };
         TodoCtrl.prototype.clearDoneTodos = function () {
             this.$scope.todos = this.todos = this.todos.filter(function (todoItem) { return !todoItem.completed; });
-        };
-        TodoCtrl.prototype.markAll = function (completed) {
-            this.todos.forEach(function (todoItem) { todoItem.completed = completed; });
         };
         // $inject annotation.
         // It provides $injector with information about dependencies to be injected into constructor

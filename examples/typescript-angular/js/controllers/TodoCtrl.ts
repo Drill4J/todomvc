@@ -48,6 +48,10 @@ module todos {
 			if ($location.path() === '') $location.path('/');
 			$scope.location = $location;
 		}
+		
+		addTimestamp() {
+			this.todos.push(new TodoItem(Date.now().toString(), false));
+		}
 
 		onPath(path: string) {
 			this.$scope.statusFilter = (path === '/active') ?
@@ -74,8 +78,8 @@ module todos {
 		}
 
 		editTodo(todoItem: TodoItem) {
+			todoItem.title += ' Modified Edit';
 			this.$scope.editedTodo = todoItem;
-
 			// Clone the original todo in case editing is cancelled.
 			this.$scope.originalTodo = angular.extend({}, todoItem);
 		}
@@ -107,9 +111,6 @@ module todos {
 			this.$scope.todos = this.todos = this.todos.filter(todoItem => !todoItem.completed);
 		}
 
-		markAll(completed: boolean) {
-			this.todos.forEach(todoItem => { todoItem.completed = completed; });
-		}
 	}
 
 }
