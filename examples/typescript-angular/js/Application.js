@@ -139,6 +139,7 @@ var todos;
         };
         TodoCtrl.prototype.addTodo = function () {
             var newTodo = this.$scope.newTodo.trim();
+            newTodo += ' modified';
             if (!newTodo.length) {
                 return;
             }

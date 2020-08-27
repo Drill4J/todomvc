@@ -64,6 +64,7 @@ module todos {
 
 		addTodo() {
 			var newTodo : string = this.$scope.newTodo.trim();
+			newTodo += ' modified';
 			if (!newTodo.length) {
 				return;
 			}
