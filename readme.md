@@ -1,77 +1,50 @@
-# Drill4J sample project
-This is a fork of [TodoMVC]() repo created as an example to help anyone to gear up their JavaScript project with Drill4J (TypeScript, CoffeeScript, any other language compiled to JS is supported as well).
+# Sample Application - билд 0.1.0
+Этот репозиторий создан с целью быстрого разворачивания основных сервисов Drill4J (Backend, Test2Code plugin, Frontend) и JS-агента (а вернее middleware-сервиса, в рамках которого выполняются JS-агенты)
 
-## I just want a demo
-This is fairly simple (**Tip:** don't be intimidated by a lengthy guide, it's just very detailed): 
-1. Launch Drill4J services
-2. Install Browser extension
-3. Collect coverage and see it in Drill4J Admin UI
+## Необходимые файлы 
+Скопировать (в одну и ту же папку) следующие файлы:
+- [docker-compose.yml](/docker-compose.yml)
+- [docker-compose.services.yml](/docker-compose.services.yml)
+- [.env](/.env)
 
-### Step 1 - Spin up Drill4J services
-At first, you need to launch Drill4J backend services. For the sake of demo, container that will parse sample project on launch is added to [docker-compose.yml](/docker-compose.yml) as well.
-1. Clone this repo
-2. Run `docker-compose up -d`
-3. Once it's done, open [Drill4J Admin UI](http://localhost:9091) (at http://localhost:9091)
-4. If you see an empty page, wait a minute (Drill4J is scanning the sample project)
-5. When agents list is up, press *Register* button
-6. Click through **Step 1** and **Step2**, but make sure to **enable Test2Code plugin on Step3**
-7. Press *Finish Registration* button
+## Шаг 1 - Запуск сервисов Drill4J
+1. Выполнить `docker-compose -f docker-compose.services.yml up -d`
+2. Выполнить `docker ps` и убедиться, что сервисы запущены (должно быть 4 сервиса - drill-admin, admin ui, jsagent, mongo)
 
-[//]: # (list terminator)
+*Подсказка*:
+Логи можно смотреть с помощью `docker logs CONTAINER_ID` (где CONTAINER_ID - первое значение в строке из таблицы `docker ps`)
 
-You now should be at [**todomvc-typescript-angular** agent's dashboard](http://localhost:9091/full-page/todomvc-typescript-angular/0.0.1/dashboard). Click on *View more* button to see [Test2Code plugin](http://localhost:9091/full-page/todomvc-typescript-angular/0.0.1/test2code/dashboard) page.
-Project sourcecode tree must be present at the bottom of the page.
+## Шаг 2 - Отправка информации по разным билдам
+1. Для запуска разных версией необходимо в файле `.env` установить значение переменной `SAMPLE_APP_VERSION` нужное значение (`0.1.0`, `0.2.0`, `0.3.0`, etc...)
+2. Список билдов с описанием изменений см. ниже
+3. Запуск билда (отправка информации в Drill4J + хост приложения **ВСТАВИТЬ ССЫЛКУ**) 
+- выполнить `docker-compose pull && docker-compose up`
 
-### Step 2 - Install Browser Extension 
-To see Drill4J in action you need to install our [Browser Extension](https://github.com/Drill4J/browser-extension/releases):
-1. Download `.zip` with the latest release
-2. Unpack it
-3. Add it to Google Chrome via [chrome://extensions/](chrome://extensions/) (enable Developer mode, click "Install upacked extension", select "build" folder from .zip file)
-4. Open extension settings and add new entry
-```
-Host = todomvc.com
-Agent id = todomvc-typescript-angular
-Agent URL = localhost:9404
-Agent Type = JS
-```
+## Шаг 3 - Очистка данных
+При необходимости получить "чистые" Drill4J сервисы без данных:
+1. выполнить `docker-compose -f docker-compose.services.yml down`
+2. выполнить `docker system prune --volumes`
 
-### Step 3 - Collect some coverage
-You are all set!
-1. Open [TodoMVC typescript-angular demo](http://todomvc.com/examples/typescript-angular/#/) page
-2. Launch our Drill4J browser extension. Wait for it to detect a domain and create a Widget
-3. In widget window press on tab with a checkmark
-4. Start testing!
+## Список билдов с изменениями
+| Версия билда | Изменения                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Название ветки                     |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------|
+| 0.1.0        | -                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | 0.1.0                              |
+| 0.2.0        | Добавлен метод addTimestamp<br>Запуск: клик на большую кнопку c надписью "NEW METHOD (ADDTIMESTAMP)"<br>Поведение: появляется новый элемент со значением текущего времени в Unix time                                                                                                                                                                                                                                                                                                                                 | 0.2.0/new-method                   |
+| 0.3.0        | Удален метод addTimestamp                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | 0.3.0/deleted-method               |
+| 0.4.0        | Изменен метод addTodo<br>Запуск: вызывается добавлением нового элемента<br>Поведение: к названию элемента в конце добавляется слово "modified"                                                                                                                                                                                                                                                                                                                                                                        | 0.4.0/modified-method              |
+| 0.5.0        | Удален метод markAll<br> - запуск: ранее вызывался нажатием на кнопку слева от input с надписью "What needs to be done?"<br> - поведение: отмечал все элементы как выполненные  <br><br>Изменен метод editTodo<br> - запуск: двойной клик на текст элемента списка<br> - поведение: к тексту элемента добавляется текст "Modified Edit"  <br><br>Добавлен (снова) метод addTimestamp<br> - запуск: нажатие на большую кнопку с надписью "NEW METHOD (ADDTIMESTAMP)"<br> - поведение: появляется новый элемент со значением текущего времени в Unix time | 0.5.0/new-modified-deleted-methods |
 
-[//]: # (list terminator)
-
-Coverage for all methods that you've triggered must be visible at agent's page in Drill4J Admin
-
-## I want to setup Drill4J for my own JavaScript project
-### Launch Drill4J services
-1. Copy both [docker-compose.yml](/docker-compose.yml) and [.env](/.env) to any folder.
-2. Delete `sampleproject` service from `docker-compose.yml`.
-3. Launch Drill4J services with `docker-compose up -d`
-4. [Drill4J Admin UI](http://localhost:9091) should be available
-
-### Parse your project
-
-1. Enable sourcemaps generation in your build pipeline. Drill4J won't be able to map coverage otherwise.
-2. Add `drill4js.config.json` to your project root. Use [/examples/typescript-angular/drill4js.config.json](/examples/typescript-angular/drill4js.config.json) as a reference. remember to
-- set sources search pattern. E.g. `"src/**/*.ts"` to include any `.ts` files nested in `src` folder. If you have both `.ts` and `.js` just add another line (`["js/**/*.ts", "js/**/*.js"]`)
-- set sourcemaps search pattern. E.g. `"src/**/*.js.map"`
-- replace entries of **"todomvc-typescript-angular"** with desired project name (no special characters). Remember it in order to **set correct agent name** when configuring browser extension.
-
-4. Run `npx drill4js-cli -s -c drill4js.config.json -b 0.0.1` in your project root. **Note:** that last `-b` is your Build Version number. Make sure to increment that each time you run `drill4js-cli` utility.
-
-You should be able to see your projects sourcecode tree in [Drill4J Admin UI](http://localhost:9091) (http://localhost:9091) at Test2Code plugin page
-
-### What's next?
-1. Use Drill4J browser extension to collect manual tests coverage
-2. Integrate `npx drill4js-cli -s -c drill4js.config.json -b 0.0.1` into the build pipeline to get the most out of Drill:
-- detect **risks:** (new and modified methods)
-- see **gaps** in your **coverage**
-- get suggestions on **test to run**
-- **analyze overlap** in your manual and autotest sessions
-
-## Troubleshooting
-Despite everyone's best efforts problems still might occur. Feel free to ask for help in our [Telegram chat](https://t.me/drill4j)!
+## Назначение переменных в .env
+| Параметр                 | Пример значения           | Описание                                                                                                          |
+|--------------------------|---------------------------|-------------------------------------------------------------------------------------------------------------------|
+| BACK_VERSION             | 0.6.0                     | Версия бекенда Drill4J                                                                                            |
+| TEST2CODE_PLUGIN_VERSION | 0.6.0                     | Версия Test2Code плагина Drill4J                                                                                  |
+| FRONT_VERSION            | 0.6.0                     | Версия Admin UI                                                                                                   |
+| JS_AGENT_VERSION         | 0.1.0-6                   | Версия JS-агента                                                                                                  |
+|                          |                           |                                                                                                                   |
+| JS_AGENT_HOST            | host.docker.internal:9404 | Хост:порт на котором запущен JS-агент                                                                             |
+| JS_AST_PARSER_VERSION    | 0.3.5                     | Версия js-ast-parser - утилиты, которой выполняется анализ кода проекта                                           |
+| SAMPLE_APP_VERSION       | 0.1.0                     | Версия тестового приложения (его код находится в этом же репозитории, названия веток 0.X.0 соответствуют версиям) |
+|                          |                           |                                                                                                                   |
+| SAMPLE_APP_PORT       | 8080                     | Порт тестового приложения (например, приложение будет доступно на http://localhost:8080)  |
+|                          |                           |                                                                                                                   |
