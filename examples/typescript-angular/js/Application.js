@@ -137,9 +137,6 @@ var todos;
             this.$scope.allChecked = !this.$scope.remainingCount;
             this.todoStorage.put(this.todos);
         };
-        TodoCtrl.prototype.addTimestamp = function () {
-            this.todos.push(new todos.TodoItem(Date.now().toString(), false));
-        };
         TodoCtrl.prototype.addTodo = function () {
             var newTodo = this.$scope.newTodo.trim();
             if (!newTodo.length) {
