@@ -10,7 +10,8 @@
 	<body>
 		<section class="todoapp" ng-controller="todoCtrl">
 			<header class="header">
-				<h1>todos</h1>
+				<h1>todos</h1> 
+				<button ng-click="vm.sampleMethod()">Trigger sample method</button>
 				<form class="todo-form" ng-submit="vm.addTodo()">
 					<input class="new-todo" placeholder="What needs to be done?" ng-model="newTodo" autofocus>
 				</form>

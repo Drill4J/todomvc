@@ -8,7 +8,7 @@ var todos;
             this.completed = completed;
         }
         return TodoItem;
-    })();
+    }());
     todos.TodoItem = TodoItem;
 })(todos || (todos = {}));
 /// <reference path='../_all.ts' />
@@ -91,7 +91,7 @@ var todos;
             localStorage.setItem(this.STORAGE_ID, JSON.stringify(todos));
         };
         return TodoStorage;
-    })();
+    }());
     todos_1.TodoStorage = TodoStorage;
 })(todos || (todos = {}));
 /// <reference path='../_all.ts' />
@@ -112,6 +112,7 @@ var todos;
             this.$location = $location;
             this.todoStorage = todoStorage;
             this.filterFilter = filterFilter;
+            this.callCounter = 0;
             this.todos = $scope.todos = todoStorage.get();
             $scope.newTodo = '';
             $scope.editedTodo = null;
@@ -126,6 +127,22 @@ var todos;
                 $location.path('/');
             $scope.location = $location;
         }
+        TodoCtrl.prototype.sampleMethod = function () {
+            alert('Sample method called');
+            switch (this.callCounter) {
+                case 0:
+                    alert('first time');
+                    break;
+                case 1:
+                    alert('second time');
+                    break;
+                default:
+                    alert(this.callCounter + " times (but its the same code branch)");
+                    break;
+            }
+            ;
+            this.callCounter++;
+        };
         TodoCtrl.prototype.onPath = function (path) {
             this.$scope.statusFilter = (path === '/active') ?
                 { completed: false } : (path === '/completed') ?
@@ -187,7 +204,7 @@ var todos;
             'filterFilter'
         ];
         return TodoCtrl;
-    })();
+    }());
     todos.TodoCtrl = TodoCtrl;
 })(todos || (todos = {}));
 /// <reference path='_all.ts' />

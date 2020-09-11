@@ -12,6 +12,8 @@ module todos {
 
 		private todos: TodoItem[];
 
+		private callCounter = 0;
+
 		// $inject annotation.
 		// It provides $injector with information about dependencies to be injected into constructor
 		// it is better to have it close to the constructor, because the parameters must match in count and type.
@@ -47,6 +49,22 @@ module todos {
 
 			if ($location.path() === '') $location.path('/');
 			$scope.location = $location;
+		}
+
+		sampleMethod() {
+			alert('Sample method called')
+			switch(this.callCounter) {
+				case 0:
+					alert('first time');
+					break;
+				case 1:
+					alert('second time');
+					break;
+				default:
+					alert(`${this.callCounter} times (but its the same code branch)`)
+					break;
+			};
+			this.callCounter++;
 		}
 
 		onPath(path: string) {
