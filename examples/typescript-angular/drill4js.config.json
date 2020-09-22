@@ -6,21 +6,25 @@
     "ignore": [
       "**/js/libs/**",
       "**/js/interfaces/**"
-    ],
-    "output": {
-      "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/ast"
-    }
+    ]
+  },
+  "bundle": {
+    "pattern": "js/**/*.js",
+    "ignore": [
+      "**/js/**/*.map",
+      "**/js/libs/**",
+      "**/js/interfaces/**"
+    ]
   },
   "sourcemaps": {
-    "pattern": [
-      "js/**/*.js.map"
-    ],
+    "pattern": "**/js/**/*.map",
     "ignore": [
       "**/js/libs/**",
       "**/js/interfaces/**"
-    ],
-    "output": {
-      "url": "http://jsagent:9404/agents/todomvc-typescript-angular/plugins/test2code/source-maps"
-    }
+    ]
+  },
+  "output": {
+    "agentId": "todomvc-typescript-angular",
+    "agentApiUrl": "http://jsagent:9404"
   }
 }
