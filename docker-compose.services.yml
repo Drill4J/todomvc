@@ -41,6 +41,7 @@ services:
       DRILL_ADMIN_HOST: 'drill-admin:8090'
       MONGO_HOST: 'mongo:27017'
       MONGO_DBNAME: 'js-agent'
+      COVERAGE_SOURCE_APPEND_PREFIX: "js/"
       DEBUG: 'drill:*'
       DEBUG_COLORS: 'true'
       FORCE_COLOR: '3'
